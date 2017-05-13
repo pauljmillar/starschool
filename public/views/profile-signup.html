@@ -1,0 +1,176 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+
+
+
+
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class=" md-whiteframe-z4" style="position: fixed; z-index:10;" >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="openLeftMenu()" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">menu</i>
+        </md-button>
+			<h1>
+          <span>Profile - Complete Signup</span>
+        </h1>
+
+
+			<span flex></span>
+		
+
+
+				<md-menu>
+        <md-button class="md-hue-2"  ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center">
+						{{email}}<i class="material-icons">arrow_drop_down</i>
+					</div>
+        </md-button>
+				
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="" disabled="disabled">          
+						<div class="valign-center">
+						<i class="material-icons">person</i>Profile
+						</div>
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button disabled="disabled" href="/logout" target="_self">
+						<div class="valign-center">
+						<i class="material-icons">exit_to_app</i>Logout
+						</div>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>			
+      </div>
+
+			<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+
+</md-toolbar>	
+
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;">
+
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-3">
+			
+			<md-card>
+			<div class="panel">
+				<div class="panel-heading">
+					  <div layout="row" flex layout-align="center center">
+							<ng-letter-avatar  height="120" width="120"  data="{{email}}" shape="round"></ng-letter-avatar>
+					</div>
+					<hr>
+					
+ 					  <div layout="row" flex layout-align="center center">
+     <md-button class="md-raised" disabled="disabled">avatar</md-button>
+					</div>
+					
+				</div>
+			</div><!--/panel--->
+			</md-card>
+	
+			<md-card>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class=""></h4>
+					<br/>
+				</div>
+			</div><!--/panel--->
+			</md-card>
+
+				
+				</div> <!--/end 3 col width-->
+
+		<div class="col-md-8">
+			<!--default block-->
+    <form name="signupform">
+			
+			<md-card >        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline">About You</span>
+            <span class="md-subhead"> Please confirm you are a:</span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-content>
+				
+		 <md-radio-group ng-model="user.userType" required name="userType">
+								<div layout-gt-sm="row">
+
+									<md-radio-button name="userType" value="student" class="md-primary">Student</md-radio-button><span flex=5></span>
+      						<md-radio-button name="userType" value="teacher">Teacher </md-radio-button><span flex=5></span>
+									<span ng-show="!user.userType" style="color:rgb(221,44,0)">*This is required</span>
+
+			 </div>
+    </md-radio-group>
+						
+	        <md-input-container class="md-block" ng-show="user.google.name">
+          <label>Google Name</label>
+          <input ng-model="user.google.name">
+        </md-input-container>
+
+ 						<div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input required ng-model="user.firstName" name="firstName">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Last Name (optional)</label>
+            <input ng-model="user.lastName" name="lastName">
+          </md-input-container>
+        </div>
+						
+						<md-input-container md-no-float class="md-block">
+            <label>Confirm Email</label>
+          <input required   ng-model="user.local.email" name="email" >
+        </md-input-container>
+						
+
+
+
+
+						
+						<span flex></span>
+						<md-button ng-click="updateProfile()" ng-disabled="signupform.$invalid" class="md-raised md-warn">Save</md-button>
+					</md-card-content>
+			</md-card>
+
+					</form>
+			
+<style>
+			
+.label-as-badge {
+    border-radius: 1em;
+}
+}</style>
+			
+
+
+		</div> <!--/grid of 8-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater">
+
+	</div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+				
+	</md-content>
+  </div>

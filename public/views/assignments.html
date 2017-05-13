@@ -1,0 +1,169 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+
+		<!-- ANGULAR MATERIAL SIDENAV LEFT -->
+  <md-sidenav md-component-id="left" class="md-sidenav-left" >
+      <md-toolbar >
+        <h1 class="md-toolbar-tools"></h1>
+      </md-toolbar>
+     <md-content>
+      <md-list flex>
+        <!--md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader-->
+        <md-list-item class="md-2-line" ng-click="changeView(dashboard)" >
+					<i class="material-icons md-avatar" >home</i>
+          <div class="md-list-item-text" layout="column"><h3>Home</h3></div>
+        </md-list-item>
+			<md-divider ></md-divider>
+        <md-list-item class="md-2-line" ng-click="null" >
+					<i class="material-icons md-avatar" >assignment</i>
+          <div class="md-list-item-text" layout="column"><h3>Assignments</h3></div>
+        </md-list-item>
+				        <md-subheader class="md-no-sticky">Teaching</md-subheader>
+
+				<div ng-repeat="klass in klassList track by $index">
+        	<md-list-item class="md-2-line" ng-click="classView(klass._id)" >
+					<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{klass.name}}" shape="round"></ng-letter-avatar></span>
+          	<div class="md-list-item-text" layout="column"><h3>{{klass.name}}</h3></div>
+        	</md-list-item>
+				</div>
+
+			 </md-list>
+		</md-content>
+  </md-sidenav>
+<!--/sidenav-->
+
+
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class=" md-whiteframe-z4" style="position: fixed; z-index:10;" >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="openLeftMenu()" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">menu</i>
+        </md-button>
+        <h1>
+          <span>Assignments </span>
+        </h1>	
+				
+        <span flex></span>
+				
+				<md-button ng-show="user._id == '58cab7d8796c46353244cf54'" class="md-raised" aria-label="Sign up" href="/signup" target="_self">Sign Up</md-button>
+
+			
+			<md-menu md-position-mode="target-right bottom" md-offset="0 10">
+	        <md-button  ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center hideOnMobile">
+						{{user.firstName}}	<i class="material-icons">arrow_drop_down</i>
+					</div>
+          <div class="valign-center onlyOnMobile">
+					<i class="material-icons">person</i>
+					</div>				
+        </md-button>
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="goProfile()">          
+						<md-icon class="material-icons">person</md-icon>Profile
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<md-icon class="material-icons">exit_to_app</md-icon>Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>	
+			</div>
+    </md-toolbar>
+<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+			
+
+	
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;">
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10">
+
+				<md-button class="md-raised" ng-click=""> 
+					<div class="valign-center">	All classes<i class="material-icons">arrow_drop_down</i></div>
+			  </md-button>
+			
+			<!--default block-->
+			<md-card ng-hide="assignmentList.length > 0">        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline">You have no upcoming assignments.</span>
+            <span class="md-subhead"> Use the menu on the top left to navigate.</span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-content>
+						<span flex></span>
+					</md-card-content>
+			</md-card>
+
+
+
+			<div ng-repeat="assignment in assignmentList track by $index">
+
+				<style>
+				.left-border {
+					    border-left: 6px solid #7f7f84;
+
+					}
+				</style>
+				<md-card class="left-border">			
+
+					 
+			<md-card-title ng-hide="assignment.isAnnouncement">
+				<md-card-title-text>
+					<span  class="md-subhead">		<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{assignment.klassId.name}}" shape="round"></ng-letter-avatar></span>&nbsp;&nbsp;{{assignment.klassId.name}}</span>
+					<span  class="md-headline">{{assignment.name}}	</span>
+					<span  class="md-subhead">{{assignment.description}} <span class="hideOnMobile" style="color:grey">DUE</span> {{assignment.due | date:"EEE, MMM dd"}}</span>
+			</md-card-title-text>
+			<md-card-title-media>
+            <div class="md-media-sm card-media">
+							<h1>{{assignment.numComplete}} </h1>
+							<span  class="md-subhead" style="color:grey">complete</span>
+				</div>
+          </md-card-title-media>
+				
+				<md-card-title-media>
+            <div class="md-media-sm card-media">
+							<h1>{{assignment.numNotComplete}}</h1>
+							<span  class="md-subhead" style="color:grey">not done</span>
+				</div>
+          </md-card-title-media>
+				
+				<md-button class="md-icon-button" ng-click="cancel()">
+										<i class="material-icons">more_vert</i>
+									</md-button>
+			</md-card-title>
+	
+
+				</md-card>
+
+
+		</div> <!--/grid of 8-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater">
+
+
+	</div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+				
+	</md-content>
+  </div>

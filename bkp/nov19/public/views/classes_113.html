@@ -1,0 +1,184 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+
+		<!-- ANGULAR MATERIAL SIDENAV LEFT -->
+  <md-sidenav md-component-id="left" class="md-sidenav-left" >
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Sidenav Left</h1>
+      </md-toolbar>
+     <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
+        <md-list-item class="md-3-line" ng-click="null">
+          <img ng-src="" class="md-avatar" alt="hello" />
+          <div class="md-list-item-text" layout="column">
+            <h3>Paul Millar</h3>
+            <h4>Posted at 10:29</h4>
+            <p>I have a question</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-3-line" ng-click="null">
+          <img ng-src="" class="md-avatar" alt="hello" />
+          <div class="md-list-item-text" layout="column">
+            <h3>Mr Bevens</h3>
+            <h4>Posted at 2:20</h4>
+            <p>We'll discuss it</p>
+          </div>
+        </md-list-item>
+			 </md-list>
+		</md-content>
+  </md-sidenav>
+<!--/sidenav-->
+
+
+
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class="md-hue-2  md-accent md-whiteframe-z4"  >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="openLeftMenu()" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">menu</i>
+        </md-button>
+        <h1>
+          <span>Home</span>
+        </h1>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite" ng-click="showAdvanced($event)">
+					
+          <i class="material-icons">add</i>
+        </md-button>
+			
+				<md-menu>
+        <md-button class="md-hue-2"  ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center">
+						{{email}}<i class="material-icons">arrow_drop_down</i>
+					</div>
+        </md-button>
+				
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="">          
+						<div class="valign-center">
+						<i class="material-icons">person</i>Profile
+						</div>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button disabled="disabled" ng-click="">
+            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            Something else
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<div class="valign-center">
+						<i class="material-icons">exit_to_app</i>Logout
+						</div>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>			
+      </div>
+    </md-toolbar>
+<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+	
+	
+		
+			
+	
+	
+	    <md-content flex class="md-padding">
+
+	
+<div class="container">
+
+    <div class="row">
+ 
+		<div ng-repeat="klass in klassList track by $index"> <!-- track by klass.id"-->
+          <div class="col-md-4">
+
+					<div class="panel panel-primary panel-custom">
+                <div class="panel-heading">
+										      <div class="btn-group navbar-right">
+  												<button class="btn  pull-right btn-custom"  type="button" id="dropdownMenu24" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+														<span class="glyphicon glyphicon-option-vertical glyphicon-lg" aria-hidden="true"></span>
+    											</button>
+													    <ul class="dropdown-menu" aria-labelledby="dropdownMenu24">
+    														<li><a href="#">Archive</a></li>
+    														<li><a href="#" ng-click="klassList.splice($index,1); deleteKlass(klass._id)">Delete</a></li>
+  														</ul>
+    										</div>
+								<h3 class=""><a ng-href="/class/{{klass._id}}">{{klass.name}}</a></h3>
+                         <h4 class="">{{klass.shortDesc}}</h4>
+						             <h5 class="">{{klass.numStudents}} students</h5>
+
+           			</div>
+                <div class="panel-body">
+									<p>Upcoming Assignments</p>
+
+
+								</div>
+            </div>
+        </div>
+
+		</div>	<!--end ngRepeat-->		
+	</div> <!--/row-->
+
+  
+	</div><!-- /.container -->
+			
+<script type="text/ng-template" id="dialog.klass.html">
+<md-dialog aria-label="new class" flex="30">
+  <form ng-cloak>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h2>Create a Class</h2>
+            
+          <md-input-container class="md-block" flex-gt-xs md-no-float>
+            <input ng-model="klass.name" placeholder="class">
+          </md-input-container>
+          
+          <md-input-container class="md-block" flex-gt-xs md-no-float>
+            <input ng-model="klass.shortDesc" placeholder="description">
+          </md-input-container>
+          
+  
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancel
+      </md-button>
+      <md-button ng-click="answer()">
+        Create
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+</script>
+			</md-content>
+
+		<!--/md-content-->
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,122 @@
+
+
+
+<nav class="navbar navbar-classes navbar-masthead navbar-fixed-top">
+  <div class="container">
+      
+     <div class="btn-group navbar-left"> 
+	   <button href="#" class="btn  dropdown-toggle-custom navbar-btn btn-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="glyphicon glyphicon-menu-hamburger glyphicon-lg " aria-hidden="true"></span>
+     </button> 
+         <p class="navbar-text navbar-text-lg">Classes</p>
+
+  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    	<li><a href="#">Boo</a></li>
+    	<li><a href="#">Another action</a></li>
+    	<li><a href="#">Something else here</a></li>
+    	<li role="separator" class="divider"></li>
+    	<li><a href="#">Separated link</a></li>
+  	</ul>
+</div>
+
+
+      
+<div class="btn-group btn-group-custom navbar-right">
+  <button class="btn btn-custom-lg dropdown-toggle-custom navbar-btn btn-custom" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+{{email}}    		<span class="caret"></span>
+
+    </button>
+
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    	<li><a href="#">Profile</a></li>
+    	<li><a href="#">Assignments</a></li>
+    	<li><a href="#">Something else here</a></li>
+    	<li role="separator" class="divider"></li>
+    	<li><a href="/logout">Logout</a></li>
+  	</ul>
+ </div>
+ 
+      <div class="btn-group navbar-right">
+  <button class="btn  dropdown-toggle-custom navbar-btn btn-custom" ng-click="open()" type="button" id="dropdownMenu23" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="glyphicon glyphicon-plus glyphicon-lg" aria-hidden="true"></span>
+    </button>
+    </div>
+
+  </div>    
+</nav>
+
+<div class="container">
+
+{{message}}
+	{{email}}
+
+    <hr class="">
+    <div class="row">
+ 
+		<div ng-repeat="klass in klassList track by $index"> <!-- track by klass.id"-->
+          <div class="col-md-4">
+
+					<div class="panel panel-primary panel-custom">
+                <div class="panel-heading">
+										      <div class="btn-group navbar-right">
+  												<button class="btn  pull-right btn-custom"  type="button" id="dropdownMenu24" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+														<span class="glyphicon glyphicon-option-vertical glyphicon-lg" aria-hidden="true"></span>
+    											</button>
+													    <ul class="dropdown-menu" aria-labelledby="dropdownMenu24">
+    														<li><a href="#">Archive</a></li>
+    														<li><a href="#" ng-click="klassList.splice($index,1); deleteKlass(klass._id)">Delete</a></li>
+  														</ul>
+    										</div>
+								<h3 class=""><a ng-href="/class/{{klass._id}}">{{klass.name}}</a></h3>
+                         <h4 class="">{{klass.shortDesc}}</h4>
+						             <h5 class="">{{klass.numStudents}} students</h5>
+
+           			</div>
+                <div class="panel-body">
+									<p>Upcoming Assignments</p>
+
+
+								</div>
+            </div>
+        </div>
+
+		</div>	<!--end ngRepeat-->		
+	</div>
+					
+  
+    
+  <div class="text-center">
+    <h1>Bootstrap starter template</h1>
+    <p class="lead">Use this document as a way to quickly start any new project.    <br> All you get is this text and a mostly barebones HTML document.</p>
+  </div>
+  
+</div><!-- /.container -->
+
+	
+	
+	
+	    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header shadowDepth1">
+            <h3>Create a class</h3>
+        </div>
+        <form ng-submit="submit()">
+          <div class="modal-body">
+            <label>Klass name</label>
+            <input type="text" ng-model="klass.name" />
+						<br/>
+            <label>Section</label>
+            <input  ng-model="klass.shortDesc" />
+     
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline" ng-click="cancel()">Cancel</button>
+              <input type="submit" class="btn btn-primary" value="Submit" />
+          </div>
+        </form>
+    </script>
+
+ 
+	
+	
+
+ 

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+	<html ng-app="klassApp">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>umbotron Template for TODC Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- TODC Bootstrap core CSS -->
+      <link href="./../css/todc-bootstrap.css" rel="stylesheet">
+  
+		<!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="./../js/main.js"></script>
+    <script src="./../js/services.js"></script>
+    <script src="./../js/klassesController.js"></script>
+
+      <style>
+        .btn-custom, .btn-custom:hover, .btn-custom:active, .btn-custom:visited, .btn-custom:link {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: 0 !important;
+            box-shadow:none;
+            border: 0;
+            background: transparent;
+            font-weight: 900;
+        }  
+          
+          .panel-custom {
+              height: 300px;
+          }
+          
+          .btn-join {
+              margin-right: 30px;
+          }
+          
+          .btn-group-custom {
+                margin-top: 10px;
+      }
+  
+       .btn-group  .dropdown-toggle-custom:hover {
+            -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0); */
+            box-shadow: 0 0px 0px rgba(0, 0, 0, 0); */
+        } 
+          
+          .navbar-classes {min-height: 60px; background-color: #fff;}
+          .navbar-class {min-height: 60px; background-color: #fff;}
+
+          body {
+                background-color: #e9eaec;
+                padding-top: 90px; 
+            }  
+          
+          .glyphicon-lg {
+            padding: 10px 16px;
+            font-size: 18px;
+            line-height: 1.33;
+            border-radius: 6px;
+          }
+
+          .btn-custom-lg {
+            padding: 10px 16px;
+            font-size: 18px;
+            line-height: 1.33;
+            border-radius: 6px;
+          }
+          
+          .navbar-text-lg {
+            padding: 10px 0px;
+            margin-left: 0px;
+            font-size: 18px;
+            line-height: 1.33;
+            border-radius: 6px;
+          }
+          
+         
+          </style>
+
+  </head>
+
+  <body ng-controller="klassesCtrl">
+
+<nav class="navbar navbar-classes navbar-masthead navbar-fixed-top">
+  <div class="container">
+      
+     <div class="btn-group navbar-left"> 
+	   <button href="#" class="btn  dropdown-toggle-custom navbar-btn btn-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="glyphicon glyphicon-menu-hamburger glyphicon-lg " aria-hidden="true"></span>
+     </button> 
+         <p class="navbar-text navbar-text-lg">Classes</p>
+
+  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    	<li><a href="#">Boo</a></li>
+    	<li><a href="#">Another action</a></li>
+    	<li><a href="#">Something else here</a></li>
+    	<li role="separator" class="divider"></li>
+    	<li><a href="#">Separated link</a></li>
+  	</ul>
+</div>
+
+
+      
+<div class="btn-group btn-group-custom navbar-right">
+  <button class="btn btn-custom-lg dropdown-toggle-custom navbar-btn btn-custom" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+paul@gmail.com     		<span class="caret"></span>
+
+    </button>
+
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    	<li><a href="#">Action</a></li>
+    	<li><a href="#">Another action</a></li>
+    	<li><a href="#">Something else here</a></li>
+    	<li role="separator" class="divider"></li>
+    	<li><a href="#">Separated link</a></li>
+  	</ul>
+ </div>
+ 
+      <div class="btn-group navbar-right">
+  <button class="btn  dropdown-toggle-custom navbar-btn btn-custom" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="glyphicon glyphicon-plus glyphicon-lg" aria-hidden="true"></span>
+    </button>
+    </div>
+
+  </div>    
+</nav>
+
+<div class="container">
+ {{ message }}
+    <hr class="">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-primary panel-custom">
+                <div class="panel-heading">
+                    <h3 class="">Algebra I</h3>
+                         <h4 class="">1st Period</h4>
+           </div>
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra
+                    varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt
+                    condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis
+                    nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor
+                    accumsan. Aliquam in felis sit amet augue.</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary panel-custom">
+                <div class="panel-heading">
+                    <h3 class="">Spanish</h3>
+                           <h4 class="">3rd Period</h4>
+              </div>
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra
+                            accumsan. Aliquam in felis sit amet augue.</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary panel-custom">
+                <div class="panel-heading">
+                    <h3 class="">Spanish</h3>
+                                 <h4 class="">2nd Period</h4>
+          </div>
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra
+                    varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt
+                    varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt
+                    varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt
+</div>
+             <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default" > Decline </button>
+                 <button type="button" class="btn btn-primary btn-join" >Join </button> 
+            </div>
+        </div>
+            
+
+        </div>
+    </div>
+
+    
+  <div class="text-center">
+    <h1>Bootstrap starter template</h1>
+    <p class="lead">Use this document as a way to quickly start any new project.    <br> All you get is this text and a mostly barebones HTML document.</p>
+  </div>
+  
+</div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+         <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
+
+
+

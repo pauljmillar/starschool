@@ -1,0 +1,232 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+
+		<!-- ANGULAR MATERIAL SIDENAV LEFT -->
+  <md-sidenav md-component-id="left" class="md-sidenav-left" >
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Sidenav Left</h1>
+      </md-toolbar>
+     <md-content>
+      <md-list flex>
+        <!--md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader-->
+        <md-list-item class="md-2-line" ng-click="changeView(dashboardstudent)" >
+					<i class="material-icons md-avatar" >home</i>
+          <div class="md-list-item-text" layout="column"><h3>Home</h3></div>
+        </md-list-item>
+			<md-divider ></md-divider>
+        <md-list-item class="md-2-line" ng-click="goAssignments()">
+					<i class="material-icons md-avatar" >assignment</i>
+          <div class="md-list-item-text" layout="column"><h3>Assignments</h3></div>
+        </md-list-item>
+				        <md-subheader class="md-no-sticky">Classes</md-subheader>
+
+				<div ng-repeat="klass in klassList track by $index">
+        	<md-list-item class="md-2-line" ng-click="classView(klass.klassId._id)" >
+					<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{klass.klassId.name}}" shape="round"></ng-letter-avatar></span>
+          	<div class="md-list-item-text" layout="column"><h3>{{klass.klassId.name}}</h3></div>
+        	</md-list-item>
+				</div>
+
+			 </md-list>
+		</md-content>
+  </md-sidenav>
+<!--/sidenav-->
+
+
+
+
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class="md-hue-2  md-accent md-whiteframe-z4" style="position: fixed; z-index:10;" >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="openLeftMenu()" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">menu</i>
+        </md-button>
+        <h1>
+          <span>Student Class - {{thisKlass.name}}</span>
+        </h1>
+				
+	
+				
+				
+				
+        <span flex></span>
+         <md-button class="md-icon-button" aria-label="Favorite" ng-href="/class/{{thisKlass._id}}/students">
+          <i class="material-icons">group</i>
+        </md-button>
+				<md-button class="md-icon-button" aria-label="Favorite" ng-click="showAdvanced($event)">
+          <i class="material-icons">info_outline</i>
+        </md-button>
+			
+				<md-menu>
+        <md-button class="md-hue-2"  ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center"> 
+						{{email}}<i class="material-icons">arrow_drop_down</i>
+					</div>
+        </md-button>
+				
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="">          
+						<div class="valign-center">
+						<i class="material-icons">person</i>Profile
+						</div>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button disabled="disabled" ng-click="">
+            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            Something else
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<div class="valign-center">
+						<i class="material-icons">exit_to_app</i>Logout
+						</div>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>			
+      </div>
+    </md-toolbar>
+<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+			
+
+	
+	
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;" >
+
+
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-3">
+			<md-card>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="">Assignments <a class="text-muted" href="/studentassignments"> all</a></h4>
+					<hr>
+
+					<h4 ng-show="itemsToday.length > 0" class="">Due Today</h4>
+				<div ng-repeat="assignment in assignmentList | filter: getItemsDueToday  | limitTo: 4   as itemsToday">
+					<span style="color:gray" class="">{{assignment.assignmentId.name}}</span>
+					<br/>
+				</div>			
+					
+					<h4 ng-show="itemsTomorrow.length > 0" class="">Due Tomorrow</h4>
+				<div ng-repeat="assignment in assignmentList | filter: getItemsDueTomorrow  | limitTo: 4 as itemsTomorrow ">
+					<span style="color:gray" class="">{{assignment.assignmentId.name}}</span>
+					<br/>
+				</div>
+					
+					<h4 ng-show="itemsNextDay.length > 0" class="">Due {{getDayTwoFromNow()}}</h4>
+				<div ng-repeat="assignment in assignmentList | filter: getItemsDueNextDay  | limitTo: 4 as itemsNextDay ">
+					<span style="color:gray" class="">{{assignment.assignmentId.name}}</span>
+					<br/>
+				</div>					
+					
+				</div>
+			</div><!--/panel--->
+
+			</md-card>
+		</div> <!--/end 3 col width-->
+
+		<div class="col-md-8">
+			<!--default block-->
+			<md-card ng-hide="assignmentList.length > 0">        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline">Welcome to {{thisKlass.name}}.</span>
+            <span class="md-subhead">  There are no assignments yet.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+			</md-card>
+
+
+			<div ng-repeat="assignment in assignmentList track by $index">
+
+				<md-card style="margin-bottom:30px">			
+				<md-toolbar style="background-color:#fff; color:black;">
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" ng-click="">
+						<i class="material-icons">{{assignment.assignmentId.isAnnouncement ? 'announcement' : 'assignment'}}</i>
+					</md-button>
+					<h2 class="hideOnMobile">{{assignment.assignmentId.isAnnouncement ? 'Announcement' : 'Assignment'}}<span ng-show="assignment.isSubmitted" class="text-muted">&nbsp; {{assignment.submittedDate | date:"EEE, MMM dd"}}</span></h2>
+					<span flex></span>
+					<h4 ng-show="!assignment.isSubmitted && !assignment.assignmentId.isAnnouncement" >
+						<span   class="hideOnMobile"> <span ng-class="{true:'bg-primary', false:'text-muted'}[isDueToday(assignment.assignmentId.due)]">DUE</span></span> {{assignment.assignmentId.due | date:"EEE, MMM dd"}}</h4>
+					<span ng-show="assignment.isSubmitted"  class="hideOnMobile text-muted">DONE</span>
+					<div class="cr cr-top cr-right cr-sticky cr-red">!</div>
+				</div>
+			</md-toolbar>
+					 
+			<md-card-title ng-hide="assignment.assignmentId.isAnnouncement">
+				<md-card-title-text>
+					<span  class="md-headline">{{assignment.assignmentId.name}}      <md-button  ng-show="!assignment.isSubmitted" class="md-raised md-primary pull-right" ng-click="submitStudentAssignment(assignment._id, $index); assignment.isSubmitted = true; assignment.submittedDate = Date.now();">Turn In</md-button>
+</span>
+					<span  class="md-subhead">{{assignment.assignmentId.description}}</span>
+
+			</md-card-title-text>
+			</md-card-title>
+	
+			<md-card-content ng-show="assignment.assignmentId.isAnnouncement">
+					<span  class="">{{assignment.assignmentId.name}}</span>
+			</md-card-content>
+			
+						
+				<!--/NEW add comment-->	
+				<md-list-item class="md-1-line"   style="background-color:rgba(158,158,158,0.2)">
+          <img ng-src="http://i.pravatar.cc/50" class="md-avatar" alt="hello" />
+					<form name="commentForm" ng-cloak style="min-width:70%">
+         		<md-input-container class="md-block"  md-no-float>
+            	<input ng-model="assignment.assignmentId.comments.content" placeholder="Add class comment..." name="com" ng-focus="isSearchFocused=true"  >
+          	</md-input-container>
+						<md-icon md-font-icon="material-icons" class="md-secondary" ng-click=" addComment(assignment.assignmentId._id, $index, assignment.assignmentId.comments.content); assignment.assignmentId.comments.content='';" style="padding-right:20px;" ng-show="isSearchFocused">done</md-icon>
+						<md-icon md-font-icon="material-icons" class="md-secondary" ng-click="cancelComment(); assignment.assignmentId.comments.content='';" style="padding-right:40px;" ng-show="isSearchFocused">cancel</md-icon>
+					</form>
+					<md-divider ></md-divider>
+	  		</md-list-item>
+					
+				<!--/close NEW add comment-->
+				
+
+				
+				<!--/ng NEW repeat comments-->
+					<md-list-item class="md-3-line" ng-repeat="comment in assignment.assignmentId.comments | reverse track by $index  " >
+          <img ng-src="http://i.pravatar.cc/50" class="md-avatar" alt="hello" />
+          <div class="md-list-item-text" layout="column">
+            <h3>{{comment.author.firstName}}</h3>
+            <h4>{{comment.posted | date:"MM/dd 'at' h:mma"}}</h4>
+            <p>{{ comment.content}}</p>
+          </div>
+				<md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+				<!--/ng NEW repeat comments-->
+				
+		</md-card><!--/close card--->
+			</div> <!--/ng repeat assignments-->
+
+		</div> <!--/grid of 8-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater">
+
+	</div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+				
+	</md-content>
+  </div>

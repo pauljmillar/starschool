@@ -1,0 +1,234 @@
+<div layout="column" flex>
+
+	<!--section layout="row" flex=""-->
+
+
+	<!-- ANGULAR MATERIAL SIDENAV LEFT -->
+	<md-sidenav md-component-id="left" class="md-sidenav-left">
+		<md-toolbar>
+			<h1 class="md-toolbar-tools">Sidenav Left</h1>
+		</md-toolbar>
+		<md-content>
+			<md-list flex>
+				<!--md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader-->
+				<md-list-item class="md-2-line" ng-click="changeView(dashboard)">
+					<i class="material-icons md-avatar">home</i>
+					<div class="md-list-item-text" layout="column">
+						<h3>Home</h3></div>
+				</md-list-item>
+				<md-divider></md-divider>
+				<md-list-item class="md-2-line" ng-click="goAssignments()">
+					<i class="material-icons md-avatar">assignment</i>
+					<div class="md-list-item-text" layout="column">
+						<h3>Assignments</h3></div>
+				</md-list-item>
+				<md-subheader class="md-no-sticky">Teaching</md-subheader>
+
+				<div ng-repeat="klass in klassList track by $index">
+        	<md-list-item class="md-2-line" ng-click="classView(klass._id)" >
+					<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{klass.name}}" shape="round"></ng-letter-avatar></span>
+          	<div class="md-list-item-text" layout="column"><h3>{{klass.name}}</h3></div>
+				 </md-list-item>
+	<!--only show the following stream, student, and about links on mobile view -->
+					<md-list-item ng-if="klass._id==thisKlass._id" class="md-2-line onlyOnMobile" ng-click="classView(thisKlass._id)" >
+							<i class="material-icons md-avatar" >keyboard_arrow_right</i>
+						<div class="md-list-item-text" layout="column"><h3>stream</h3></div>
+					</md-list-item>
+					<md-list-item ng-if="klass._id==thisKlass._id" class="md-2-line onlyOnMobile" ng-click="classView(thisKlass._id+'/students')" >
+							<i class="material-icons md-avatar" >keyboard_arrow_right</i>
+						<div class="md-list-item-text" layout="column"><h3>students</h3></div>
+					</md-list-item>					
+					<md-list-item ng-if="klass._id==thisKlass._id" class="md-2-line onlyOnMobile" ng-click="classView(thisKlass._id+'/about')" >
+							<i class="material-icons md-avatar" >keyboard_arrow_right</i>
+						<div class="md-list-item-text" layout="column"><h3>about</h3></div>
+					</md-list-item>
+				</div>
+
+			</md-list>
+		</md-content>
+	</md-sidenav>
+	<!--/sidenav-->
+
+
+
+
+	<!-- ANGULAR MATERIAL toolbar -->
+	<md-toolbar class="md-whiteframe-z4" style="position: fixed; z-index:10;">
+		<div class="md-toolbar-tools">
+			<md-button ng-click="openLeftMenu()" class="md-icon-button" aria-label="Settings">
+				<i class="material-icons">menu</i>
+			</md-button>
+			<h1>
+          <span class="hideOnMobile">{{thisKlass.name}}</span>
+        </h1>
+
+
+			<span flex></span>
+			<md-nav-bar md-selected-nav-item="students" mdSelectedNavItem="students" class="hideOnMobile">
+				<md-nav-item md-nav-href="/class/{{thisKlass._id}}" name="stream">Stream</md-nav-item>
+				<md-nav-item md-nav-href="/class/{{thisKlass._id}}/students" name="students">Students</md-nav-item>
+				<md-nav-item md-nav-href="/class/{{thisKlass._id}}/about" name="about">About</md-nav-item>
+			</md-nav-bar>
+			<span flex></span>
+
+			<md-button ng-show="user._id == '58cab7d8796c46353244cf54'" class="md-raised" aria-label="Sign up" href="/signup" target="_self">Sign Up</md-button>
+
+			<md-menu md-position-mode="target-right bottom" md-offset="0 10">
+	        <md-button class="md-hue-2"  ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center hideOnMobile">
+						{{user.firstName}}	<i class="material-icons">arrow_drop_down</i>
+					</div>
+          <div class="valign-center onlyOnMobile">
+					<i class="material-icons">person</i>
+					</div>				
+        </md-button>
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="goProfile()">          
+						<md-icon class="material-icons">person</md-icon>Profile
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<md-icon class="material-icons">exit_to_app</md-icon>Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>	
+		</div>
+	</md-toolbar>
+	<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+
+
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;">
+
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10">
+
+
+			<md-toolbar style="background-color: #e9eaec;">
+		<div class="md-toolbar-tools">
+
+					<md-menu>
+						<md-button class="md-raised" ng-click="openMenu($mdOpenMenu, $event)">
+							<div class="valign-center">
+								ACTIONS<i class="material-icons">arrow_drop_down</i>
+							</div>
+						</md-button>
+						<md-menu-content width="3">
+							<md-menu-item>
+								<md-button ng-click="">
+									<div class="valign-center">
+										<i class="material-icons">person</i>Profile
+									</div>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button disabled="disabled" ng-click="">
+									<md-icon md-svg-icon="call:voicemail"></md-icon>
+									Something else
+								</md-button>
+							</md-menu-item>
+							<md-menu-divider></md-menu-divider>
+							<md-menu-item>
+								<md-button href="/logout" target="_self">
+									<div class="valign-center">
+										<i class="material-icons">exit_to_app</i>Logout
+									</div>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<span flex></span>
+
+
+          Class Code:
+					<md-menu>
+						<md-button class="md-raised" ng-click="openMenu($mdOpenMenu, $event)">
+							<div class="valign-center">
+								{{thisKlass.joinCode}}<i class="material-icons">arrow_drop_down</i>
+							</div>
+						</md-button>
+						<md-menu-content width="3">
+							<md-menu-item>
+								<h4>
+						Generate new code:
+					</h4>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button ng-click="resetKlassCode()">
+									<div class="valign-center">
+										<i class="material-icons">autorenew</i>Reset
+									</div>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</div>
+			</md-toolbar>
+		
+					<!--default block-->
+			<md-card ng-hide="studentList.length > 0">        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline">You have no students yet.</span>
+            <span class="md-subhead"> Share the class code {{thisKlass.joinCode}} and invite them to join.</span>
+						</md-card-title-text>
+					</md-card-title>
+			</md-card>
+		
+			<div ng-repeat="student in studentList track by $index">
+
+				<md-card >			
+
+					 
+			<md-card-title >
+				<md-card-title-text>
+					<span  class="md-headline">		<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{student.studentId.firstName}}" shape="round"></ng-letter-avatar></span>&nbsp;&nbsp;{{student.studentId.firstName}} {{student.studentId.lastName}}</span>
+			</md-card-title-text>
+			<md-card-title-media>
+            <div class="md-media-sm card-media">
+							<h1>{{assignment.numComplete}} </h1>
+							<span  class="md-subhead" style="color:grey">complete</span>
+				</div>
+          </md-card-title-media>
+				
+				<md-card-title-media>
+            <div class="md-media-sm card-media">
+							<h1>{{assignment.numNotComplete}}</h1>
+							<span  class="md-subhead" style="color:grey">not done</span>
+				</div>
+          </md-card-title-media>
+				
+				<md-button class="md-icon-button" ng-click="cancel()">
+										<i class="material-icons">more_vert</i>
+									</md-button>
+			</md-card-title>
+	
+
+				</md-card>
+
+
+		</div> <!--/grid of 8-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater">
+
+
+	</div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+

@@ -1,0 +1,132 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class="md-whiteframe-z4" style="position: fixed; z-index:10;" >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="classView(thisKlass._id)" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">arrow_back</i>
+        </md-button>
+
+				
+        <span flex></span>
+
+				<md-button ng-show="user._id == '58cab7d8796c46353244cf54'" class="md-raised" aria-label="Sign up" href="/signup" target="_self">Sign Up</md-button>
+
+			
+			<md-menu md-position-mode="target-right bottom" md-offset="0 10">
+	        <md-button ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center hideOnMobile">
+						{{user.firstName}}	<i class="material-icons">arrow_drop_down</i>
+					</div>
+          <div class="valign-center onlyOnMobile">
+					<i class="material-icons">person</i>
+					</div>				
+        </md-button>
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="goProfile()">          
+						<md-icon class="material-icons">person</md-icon>Profile
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<md-icon class="material-icons">exit_to_app</md-icon>Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>	
+			</div>
+    </md-toolbar>
+<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+			
+
+	
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;">
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10">
+
+		<br/>
+			
+			<!--default block-->
+			<md-card >        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline" ng-show="isReadOnly">{{thisAssignment.name}}</span>
+					<md-input-container ng-show="!isReadOnly" class="md-block" flex-gt-sm>
+    				   <label>assignment name</label>
+       	<input ng-model="thisAssignment.name"  md-select-on-focus name="name"></input>
+      		</md-input-container>
+						
+            <span class="md-subheader" ng-show="isReadOnly">{{thisAssignment.description}}</span>
+						<md-input-container ng-show="!isReadOnly" class="md-block" flex-gt-sm>
+ 				   <label>description</label>
+         		<input ng-model="thisAssignment.description"  md-select-on-focus name="description"></input>
+      			</md-input-container>
+				
+						</md-card-title-text>
+					</md-card-title>
+		      <form name="userForm">
+
+			<md-card-content > 
+
+			<md-input-container class="md-block" flex-gt-xs>
+				   <label>Due date</label>
+				  <md-datepicker ng-disabled='isReadOnly' ng-model="dt" md-placeholder="Due date" md-open-on-focus ng-change="thisAssignment.due = dt.toISOString()">
+			</md-input-container>					
+
+			<md-input-container class="md-block" flex-gt-xs>
+				<label>Point Method</label>
+	 			<md-switch ng-model="thisAssignment.awardUponSubmit" aria-label="Point Method"  class="md-warn" ng-disabled='isReadOnly'>
+    			{{ thisAssignment.awardUponSubmit ? 'Award upon submit' : 'Assign while grading'}}
+  			</md-switch>
+				</md-input-container>					
+	
+				<md-input-container class="md-block" flex-gt-xs>
+				      <label>Points</label>
+				 <input flex=10 type="number" step="10" ng-disabled="isReadOnly" ng-model="thisAssignment.points" aria-label="green" />
+		
+				</md-input-container>					
+			</md-card-content>
+
+			 <md-card-actions layout="row" layout-align="end center" >
+ 
+					<md-button ng-click="setEditMode()"  ng-show="isReadOnly" class="md-raised md-primary">Edit</md-button>
+					<md-button ng-click="showDeleteConfirm()"  ng-show="isReadOnly" ng-class="md-raised">Delete</md-button>
+					<md-button ng-click="updateAssignment()" ng-show="!isReadOnly" class="md-raised md-accent">Save</md-button>
+					<md-button ng-click="cancelEditMode()" ng-show="!isReadOnly"  ng-class="md-raised">Cancel</md-button>
+
+						</md-card-actions>
+		</form>
+			</md-card>
+
+
+
+
+
+
+<br/>
+
+		</div> <!--/grid of 10-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater"></div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+				
+	</md-content>
+  </div>

@@ -1,0 +1,146 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+
+		<!-- ANGULAR MATERIAL SIDENAV LEFT -->
+  <md-sidenav md-component-id="left" class="md-sidenav-left" >
+      <md-toolbar>
+        <h1 class="md-toolbar-tools"></h1>
+      </md-toolbar>
+     <md-content>
+      <md-list flex>
+        <!--md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader-->
+        <md-list-item class="md-2-line" ng-click="changeView(dashboard)" >
+					<i class="material-icons md-avatar" >home</i>
+          <div class="md-list-item-text" layout="column"><h3>Home</h3></div>
+        </md-list-item>
+			<md-divider ></md-divider>
+        <md-list-item class="md-2-line" ng-click="null" >
+					<i class="material-icons md-avatar" >assignment</i>
+          <div class="md-list-item-text" layout="column"><h3>Assignments</h3></div>
+        </md-list-item>
+				        <md-subheader class="md-no-sticky">Classes</md-subheader>
+
+				<div ng-repeat="klass in klassList track by $index">
+        	<md-list-item class="md-2-line" ng-click="classView(klass.klassId._id)" >
+					<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{klass.klassId.name}}" shape="round"></ng-letter-avatar></span>
+          	<div class="md-list-item-text" layout="column"><h3>{{klass.klassId.name}}</h3></div>
+        	</md-list-item>
+				</div>
+
+			 </md-list>
+		</md-content>
+  </md-sidenav>
+<!--/sidenav-->
+
+
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class="md-whiteframe-z4" style="position: fixed; z-index:10;" >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="classView(thisKlass.klassId._id)" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">arrow_back</i>
+        </md-button>
+
+				
+        <span flex></span>
+     	<md-button ng-show="user._id == '58cab7d8796c46353244cf54'" class="md-raised" aria-label="Sign up" href="/signup" target="_self">Sign Up</md-button>
+
+			
+			<md-menu md-position-mode="target-right bottom" md-offset="0 10">
+	        <md-button ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center hideOnMobile">
+						{{user.firstName}}	<i class="material-icons">arrow_drop_down</i>
+					</div>
+          <div class="valign-center onlyOnMobile">
+					<i class="material-icons">person</i>
+					</div>				
+        </md-button>
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="goProfile()">          
+						<md-icon class="material-icons">person</md-icon>Profile
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<md-icon class="material-icons">exit_to_app</md-icon>Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>	
+			</div>
+    </md-toolbar>
+<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+			
+
+	
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;">
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10">
+
+<h5>Due: {{thisAssignment.assignmentId.due | date:"EEE, MMM dd"}}</h5>
+<h3>{{thisAssignment.assignmentId.name}}</h3>
+	<h5>{{thisAssignment.assignmentId.description}}</h5>
+		<br/>
+			
+			<!--default block-->
+			<md-card >        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline">Your work<md-button class="md-accent pull-right" >{{statusMessage}}</md-button></span>
+						</md-card-title-text>
+					</md-card-title>
+		      <form name="userForm">
+
+				<md-card-content > 
+						<md-input-container class="md-block" flex-gt-sm>
+          <label>Enter work here</label>
+          <textarea ng-model="thisAssignment.work" md-maxlength="500" rows="3" md-select-on-focus name="work"></textarea>
+        </md-input-container>
+				</md-card-content>
+									<!--/add private note-->	
+				<md-list-item class="md-1-line"   style="background-color:rgba(158,158,158,0.2)">
+					<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data={{user.firstName}} shape="round"></ng-letter-avatar></span>
+         		<md-input-container class="md-block"  md-no-float style="min-width:90%">
+            	<input ng-model="thisAssignment.note" placeholder="Include note for teacher..." name="com" ng-focus="isSearchFocused=true"  >
+          	</md-input-container>
+	  		</md-list-item>
+					
+			 <md-card-actions ng-show="!thisAssignment.isSubmitted" layout="row" layout-align="end center" style="margin:0; padding:10px; background-color:rgba(158,158,158,0.2)">
+          <md-button ng-click="updateAssignment('save')">Save Draft</md-button>
+           <md-button  class="md-raised md-primary" ng-click="updateAssignment('submit')">Turn In</md-button>
+       </md-card-actions>
+		</form>
+			</md-card>
+
+
+
+
+
+
+<br/>
+
+		</div> <!--/grid of 10-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater"></div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+				
+	</md-content>
+  </div>

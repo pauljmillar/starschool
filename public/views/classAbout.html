@@ -1,0 +1,348 @@
+<div layout="column"  flex>
+
+  <!--section layout="row" flex=""-->
+
+
+		<!-- ANGULAR MATERIAL SIDENAV LEFT -->
+  <md-sidenav md-component-id="left" class="md-sidenav-left" >
+      <md-toolbar>
+        <h1 class="md-toolbar-tools"></h1>
+      </md-toolbar>
+     <md-content>
+      <md-list flex>
+        <!--md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader-->
+        <md-list-item class="md-2-line" ng-click="changeView(dashboard)" >
+					<i class="material-icons md-avatar" >home</i>
+          <div class="md-list-item-text" layout="column"><h3>Home</h3></div>
+        </md-list-item>
+			<md-divider ></md-divider>
+        <md-list-item class="md-2-line" ng-click="goAssignments()">
+					<i class="material-icons md-avatar" >assignment</i>
+          <div class="md-list-item-text" layout="column"><h3>Assignments</h3></div>
+        </md-list-item>
+				        <md-subheader class="md-no-sticky">Teaching</md-subheader>
+
+				<div ng-repeat="klass in klassList track by $index">
+        	<md-list-item class="md-2-line" ng-click="classView(klass._id)" >
+					<span class="md-avatar"><ng-letter-avatar  height="40" width="40"  data="{{klass.name}}" shape="round"></ng-letter-avatar></span>
+          	<div class="md-list-item-text" layout="column"><h3>{{klass.name}}</h3></div>
+				 </md-list-item>
+	<!--only show the following stream, student, and about links on mobile view -->
+					<md-list-item ng-if="klass._id==thisKlass._id" class="md-2-line onlyOnMobile" ng-click="classView(thisKlass._id)" >
+							<i class="material-icons md-avatar" >keyboard_arrow_right</i>
+						<div class="md-list-item-text" layout="column"><h3>stream</h3></div>
+					</md-list-item>
+					<md-list-item ng-if="klass._id==thisKlass._id" class="md-2-line onlyOnMobile" ng-click="classView(thisKlass._id+'/students')" >
+							<i class="material-icons md-avatar" >keyboard_arrow_right</i>
+						<div class="md-list-item-text" layout="column"><h3>students</h3></div>
+					</md-list-item>					
+					<md-list-item ng-if="klass._id==thisKlass._id" class="md-2-line onlyOnMobile" ng-click="classView(thisKlass._id+'/about')" >
+							<i class="material-icons md-avatar" >keyboard_arrow_right</i>
+						<div class="md-list-item-text" layout="column"><h3>about</h3></div>
+					</md-list-item>
+				</div>
+
+			 </md-list>
+		</md-content>
+  </md-sidenav>
+<!--/sidenav-->
+
+
+
+<!-- ANGULAR MATERIAL toolbar -->
+    <md-toolbar class="md-whiteframe-z4" style="position: fixed; z-index:10;" >
+      <div class="md-toolbar-tools">
+        <md-button ng-click="openLeftMenu()" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">menu</i>
+        </md-button>
+        <h1>
+          <span class="hideOnMobile">{{thisKlass.name}}</span>
+        </h1>
+				
+	
+				
+
+				
+        <span flex></span>
+			<md-nav-bar md-selected-nav-item="stream" mdSelectedNavItem="stream" class="hideOnMobile">
+      <md-nav-item md-nav-click="classView(thisKlass._id)"  name="stream">Stream</md-nav-item>
+      <md-nav-item md-nav-click="classView(thisKlass._id+'/students')" name="students">Students</md-nav-item>
+      <md-nav-item md-nav-click="classView(thisKlass._id+'/about')"  name="about">About</md-nav-item>
+    </md-nav-bar>
+			  <span flex></span>
+
+				<md-button ng-show="user._id == '58cab7d8796c46353244cf54'" class="md-raised" aria-label="Sign up" href="/signup" target="_self">Sign Up</md-button>
+
+				
+			<md-menu md-position-mode="target-right bottom" md-offset="0 10">
+	        <md-button   ng-click="openMenu($mdOpenMenu, $event)">
+          <div class="valign-center hideOnMobile">
+						{{user.firstName}}	<i class="material-icons">arrow_drop_down</i>
+					</div>
+          <div class="valign-center onlyOnMobile">
+					<i class="material-icons">person</i>
+					</div>				
+        </md-button>
+
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="goProfile()">          
+						<md-icon class="material-icons">person</md-icon>Profile
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button href="/logout" target="_self">
+						<md-icon class="material-icons">exit_to_app</md-icon>Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>	
+			</div>
+
+			<!-- /ANGULAR MATERIAL TOOLBAR -->
+
+
+</md-toolbar>	
+
+	    <md-content flex class="md-padding" style="margin-top: 120px; background-color: #e9eaec;">
+
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-3">
+			
+		<!--avatar section-->
+			<md-card>
+			<div class="panel">
+				<div class="panel-heading">
+					  <div layout="column" flex layout-align="center center">
+							<ng-letter-avatar  height="120" width="120"  data="{{thisKlass.name}}" shape="round"></ng-letter-avatar>
+<h5>
+	{{thisKlass.teacherId.name}}					
+							</h5>
+					</div>
+					
+					<hr>
+					
+ 					  <div layout="row" flex layout-align="center center">
+     <md-button class="md-raised" disabled="disabled">avatar</md-button>
+					</div>
+					
+				</div>
+			</div><!--/panel--->
+			</md-card>
+
+			
+			<md-card>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="">Assignments <a class="text-muted" ng-href="/assignments"> all</a></h4>
+					<hr>
+
+					<h4 ng-show="itemsToday.length > 0" class="">Due Today</h4>
+				<div ng-repeat="assignment in assignmentList | filter: getItemsDueToday  | limitTo: 4   as itemsToday">
+					<span style="color:gray" class="">{{assignment.name}}</span>
+					<br/>
+				</div>			
+					
+					<h4 ng-show="itemsTomorrow.length > 0" class="">Due Tomorrow</h4>
+				<div ng-repeat="assignment in assignmentList | filter: getItemsDueTomorrow  | limitTo: 4 as itemsTomorrow ">
+					<span style="color:gray" class="">{{assignment.name}}</span>
+					<br/>
+				</div>
+					
+					<h4 ng-show="itemsNextDay.length > 0" class="">Due {{getDayTwoFromNow()}}</h4>
+				<div ng-repeat="assignment in assignmentList | filter: getItemsDueNextDay  | limitTo: 4 as itemsNextDay ">
+					<span style="color:gray" class="">{{assignment.name}}</span>
+					<br/>
+				</div>					
+					
+				</div>
+			</div><!--/panel--->
+			</md-card>
+	
+			<md-card>
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="">Join Code</h4>
+					<h5 class="">{{thisKlass.joinCode}}</h5>
+					<br/>
+				</div>
+			</div><!--/panel--->
+			</md-card>
+
+				
+				</div> <!--/end 3 col width-->
+
+		<div class="col-md-8">
+			<!--default block-->
+    <form name="signupform">
+			
+			<md-card >        
+          <md-card-title>
+        		<md-card-title-text>
+            <span class="md-headline" >{{thisKlass.name}}</span>
+	<br/>
+					<md-input-container ng-show="!isReadOnly" class="md-block" >
+          <label>Modify Class Name</label>
+          <input ng-model="thisKlass.name" name="name">
+        </md-input-container>
+							
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Section</label>
+            <input  ng-readonly="isReadOnly" ng-model="thisKlass.shortDesc" name="shortDesc">
+          </md-input-container>
+							
+							<md-input-container class="md-block" flex-gt-sm>
+            <label>Description</label>
+            <input  ng-readonly="isReadOnly" ng-model="thisKlass.longDesc" name="longDesc">
+          </md-input-container>
+							
+							<span class="md-subhead"> Points and Levels On?<h4 ng-show="isReadOnly">{{thisKlass.pointsOn ? 'Yes' : 'No'}}</h4></span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-content>
+				
+		 <md-radio-group ng-model="thisKlass.pointsOn" required name="pointsOn" ng-show="!isReadOnly">
+								<div layout-gt-sm="row">
+
+									<md-radio-button name="pointsOn" ng-value=true class="md-primary">On</md-radio-button><span flex=5></span>
+      						<md-radio-button  name="pointsOn" ng-value=false>Off </md-radio-button><span flex=5></span>
+
+			 </div>
+    </md-radio-group>
+						
+
+<br/>	
+						<span flex></span>
+					<md-button ng-click="setEditMode()" ng-show="isReadOnly" class="md-raised md-primary">Edit</md-button>
+	<md-button ng-click="updateClass()" ng-show="!isReadOnly" class="md-raised md-accent">Save</md-button>
+		<md-button ng-click="cancelEditMode()" ng-show="!isReadOnly"  class="md-raised">Cancel</md-button>
+				</md-card-content>
+			</md-card>
+
+		</form>
+
+
+<style>
+			
+.label-as-badge {
+    border-radius: 1em;
+}
+}</style>
+			
+
+		</div> <!--/grid of 8-->
+
+
+<div class="col-md-1">
+	<!--div style="min-height: 90vh;"></div-->
+<div id="floater">
+
+
+	</div><!--floater?-->
+		</div><!--/col of 2-->
+
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+<script type="text/ng-template" id="dialog.assignment.html">
+	<md-dialog aria-label="new assignment" flex="60">
+		<form ng-cloak>
+
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" ng-click="">
+						<i class="material-icons">assignment</i>
+					</md-button>
+					<h2>Assignment</h2>
+					<span flex></span>
+					<md-button class="md-icon-button" ng-click="cancel()">
+						<i class="material-icons">close</i>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<md-dialog-content>
+				<div class="md-dialog-content">
+					<h2>Create an assignment</h2>
+
+					<md-input-container class="md-block" flex-gt-xs>
+						<input ng-model="newAssignment.name" placeholder="name">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-xs>
+						<input ng-model="newAssignment.description" placeholder="description">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-xs>
+						<md-datepicker ng-model="newAssignment.due" md-placeholder="Due date" md-open-on-focus></md-datepicker>
+					</md-input-container>
+				
+				</div>
+			</md-dialog-content>
+
+			<md-dialog-actions layout="row">
+
+				<span flex></span>
+				<md-button ng-click="cancel()">
+					Cancel
+				</md-button>
+				<md-button ng-click="goAssignment()">
+					Create
+				</md-button>
+			</md-dialog-actions>
+		</form>
+	</md-dialog>
+</script>
+
+
+
+<script type="text/ng-template" id="dialog.announcement.html">
+	<md-dialog aria-label="new announcement" flex="60">
+		<form ng-cloak>
+
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" ng-click="">
+						<i class="material-icons">comment</i>
+					</md-button>
+					<h2>Announcement</h2>
+					<span flex></span>
+					<md-button class="md-icon-button" ng-click="cancel()">
+						<i class="material-icons">close</i>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<md-dialog-content>
+				<div class="md-dialog-content">
+					<h2>Create an announcement</h2>
+
+					<md-input-container class="md-block" flex-gt-xs>
+						<input ng-model="newAssignment.name" placeholder="announcement">
+					</md-input-container>
+
+	
+
+				</div>
+			</md-dialog-content>
+
+			<md-dialog-actions layout="row">
+
+				<span flex></span>
+				<md-button ng-click="cancel()">
+					Cancel
+				</md-button>
+				<md-button ng-click="goAssignment()">
+					Create
+				</md-button>
+			</md-dialog-actions>
+		</form>
+	</md-dialog>
+</script>
+				
+	</md-content>
+  </div>
